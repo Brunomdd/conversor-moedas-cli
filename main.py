@@ -1,7 +1,9 @@
 from api import api_moeda
+from uteis import leiaint,leiafloat
 
 def conversao_taxa(valor,destino):
     dados = api_moeda()
+
     if destino not in dados['conversion_rates']:
         print('Esse tipo de moeda não existe!')
         return
@@ -13,9 +15,9 @@ def main():
     while True:
         print('1 - Converter moeda')
         print('2 - Sair')
-        opcao = int(input('escolha uma opção: '))
+        opcao = leiaint('escolha uma opção: ')
         if opcao == 1:
-            valor = float(input('valor: '))
+            valor = leiafloat('valor: ')
             destino = input('digite o tipo de moeda: ').strip().upper()
             if destino is None:
                 print('Erro, não pode deixar vazio!')
