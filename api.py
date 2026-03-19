@@ -1,8 +1,8 @@
 import requests
 
-def api_moeda():
+def api_moeda(origem):
     try:
-        response = requests.get("https://v6.exchangerate-api.com/v6/44d6878ce80641a9ce9ee3eb/latest/USD", timeout=5)
+        response = requests.get(f"https://v6.exchangerate-api.com/v6/44d6878ce80641a9ce9ee3eb/latest/{origem}", timeout=5)
         response.raise_for_status()
         return response.json()
     except requests.exceptions.ConnectionError:
