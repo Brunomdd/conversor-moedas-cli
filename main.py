@@ -23,7 +23,7 @@ def conversao_taxa(valor,origem,destino):
 
 
 def moedas_disponiveis():
-    dados = api_moeda()
+    dados = api_moeda("USD")
     if not dados:
         print('A APi não conseguiu se conectar ,tente novamente mais tarde')
         return
@@ -44,7 +44,6 @@ def main():
             origem = input('Moeda de origem ex (BRL,EU,USD):').strip().upper()
             destino = input('Moeda de destino: ').strip().upper()
             valor = leiafloat('valor: ')
-
             if not destino:
                 print('Erro, não pode deixar vazio!')
                 continue
@@ -52,8 +51,7 @@ def main():
             if resposta:
                 print(f"O valor convertido é {resposta:.2f} ")
         elif opcao == 2:
-             moedas_disponiveis()
-
+            moedas_disponiveis()
         elif opcao == 3:
             break
         else:
