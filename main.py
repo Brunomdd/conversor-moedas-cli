@@ -18,7 +18,8 @@ def conversao_taxa(valor,origem,destino):
         print('Esse tipo de moeda não existe!')
         return
 
-    taxa = valor * (dados['conversion_rates'][origem]/(dados['conversion_rates'][destino]))
+
+    taxa = valor * (dados['conversion_rates'][destino])
     return taxa
 
 
