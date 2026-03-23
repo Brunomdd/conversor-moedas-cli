@@ -1,20 +1,18 @@
 from api import api_moeda
 def conversao_taxa(valor,origem,destino):
-    dados = api_moeda(origem)
-    if not dados:
-        print('A APi não conseguiu se conectar ,tente novamente mais tarde')
-        return
+    origem = origem.upper()
+    destino = destino.upper()
     if origem == destino:
-        print('Não é possivel converter uma mesma moeda!')
-        return
-
-    if len(destino) !=3 :
-        print('formato de moeda dever ser com 3 Caracteres! ')
-        return
+        return None
+    if len(origem) != 3 or len(destino) != 3:
+        return None
+    
+    dados = api_moeda(origem)
+    if not dados or 'conversion_rates' not in dados:
+        return None
 
     if destino not in dados['conversion_rates']:
-        print('Esse tipo de moeda não existe!')
-        return
+        return None
 
-    taxa = valor * (dados['conversion_rates'][destino])
-    return taxa
+    valor_convertido = round(valor * dados['conversion_rates'][destino],2)
+    return valor_convertido
