@@ -1,6 +1,7 @@
 from uteis import leiaint,leiafloat,carregar,salvar,confirmar_acao
 from conversor import conversao_taxa
 from interface_cli import moedas_disponiveis,ver_historico
+from datetime import datetime
 
 def main():
     lista = carregar()
@@ -12,6 +13,8 @@ def main():
         print('5 - Sair')
         opcao = leiaint('escolha uma opção: ')
         if opcao == 1:
+            agora = datetime.now()
+            data_hora_br = agora.strftime("%d/%m/%Y %H:%M:%S")
             origem = input('Moeda de origem ex (BRL,EUR,USD): ').strip().upper()
             if not origem or len(origem)!= 3:
                 print('Erro moeda de origem inválida')
@@ -30,8 +33,8 @@ def main():
             if resposta is None:
                 print('Erro ao converter a moeda')
             else:
-                print(f"{valor} {origem} → {resposta} {destino}")
-                lista.append({'moeda_origem':origem,'moeda_destino':destino,"valor_conversão":valor,"valor_convertido":resposta})
+                print(f"{valor} {origem} → {resposta:.2f} {destino} (salvo no histórico ✅)")
+                lista.append({'moeda_origem':origem,'moeda_destino':destino,"valor_conversão":valor,"valor_convertido":resposta,"data":data_hora_br})
                 salvar(lista)
 
         elif opcao == 2:
@@ -44,8 +47,9 @@ def main():
                 if resp == 'N':
                     print('Manteremos o estado atual do seu arquivo.')
                 else:
+                    lista.clear()
                     print('O historico foi limpo com sucesso!✅')
-                    salvar([])
+                    salvar(lista)
             else:
                 print('Não há nada para limpar no historico!❌')
         elif opcao == 5:
