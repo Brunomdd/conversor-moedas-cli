@@ -7,11 +7,11 @@ def moedas_disponiveis():
         print('A APi não conseguiu se conectar ,tente novamente mais tarde')
         return
 
+
     quantidade = len(dados['conversion_rates'])
     print(f'Temos ({quantidade}) moedas disponiveis')
     for relatorio in sorted(dados['conversion_rates']):
         print(f'{relatorio}')
-
 
 def ver_historico():
     historico = carregar()
@@ -24,4 +24,5 @@ def ver_historico():
         print(f"Moeda destino: {item['moeda_destino']}".center(32))
         print(f'valor original: {item['valor_conversão']}'.center(32))
         print(f"valor convertido: {item['valor_convertido']}".center(32))
+        print(f'data da conversão: {item['data']}')
         print()
