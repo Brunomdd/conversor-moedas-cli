@@ -1,7 +1,7 @@
 from uteis import leiaint,leiafloat,carregar,salvar,confirmar_acao
 from conversor import conversao_taxa
-from interface_cli import moedas_disponiveis,ver_historico
-from datetime import datetime
+from interface_cli import moedas_disponiveis,ver_historico,ordenar_historico
+from datetime import  datetime
 
 def main():
     lista = carregar()
@@ -10,8 +10,10 @@ def main():
         print('2 - Listar moedas disponiveis')
         print('3 - Ver historico')
         print('4 - Limpar Histórico ')
-        print('5 - Sair')
+        print('5 - Ver historico ordenado')
+        print('6- Sair')
         opcao = leiaint('escolha uma opção: ')
+
         if opcao == 1:
             agora = datetime.now()
             data_hora_br = agora.strftime("%d/%m/%Y %H:%M:%S")
@@ -23,18 +25,16 @@ def main():
             if not destino or len(destino) != 3:
                 print(f'Erro, moeda de destino inválida')
                 continue
-
             valor = leiafloat('valor: ')
             if valor <= 0:
                 print('Digite um número maior do que 0.')
                 continue
-
             resposta = conversao_taxa(valor,origem,destino)
             if resposta is None:
                 print('Erro ao converter a moeda')
             else:
                 print(f"{valor} {origem} → {resposta:.2f} {destino} (salvo no histórico ✅)")
-                lista.append({'moeda_origem':origem,'moeda_destino':destino,"valor_conversão":valor,"valor_convertido":resposta,"data":data_hora_br})
+                lista.append({'moeda_origem':origem,'moeda_destino':destino,"valor_conversão":valor,"valor_convertido":resposta,'data':data_hora_br})
                 salvar(lista)
 
         elif opcao == 2:
@@ -52,10 +52,15 @@ def main():
                     salvar(lista)
             else:
                 print('Não há nada para limpar no historico!❌')
+
         elif opcao == 5:
-            salvar(lista)
-            print('Saindo do sistema . . .')
-            break
+            lista_ordenada = ordenar_historico()
+            ver_historico(lista_ordenada)
+
+        elif opcao == 6:
+             salvar(lista)
+             print('Saindo do programa . . .')
+             break
         else:
             print('Opção inválida!')
 
