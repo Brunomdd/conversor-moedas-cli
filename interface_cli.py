@@ -1,5 +1,6 @@
 from api import  api_moeda
 from uteis import carregar
+from datetime import  datetime
 
 def moedas_disponiveis():
     dados = api_moeda("USD")
@@ -12,13 +13,11 @@ def moedas_disponiveis():
     for relatorio in sorted(dados['conversion_rates']):
         print(f'{relatorio}')
 
+def ver_historico(lista=None):
+    if lista is None:
+        lista = carregar()
 
-def ver_historico():
-    historico = carregar()
-    if not historico:
-        print('Não há nada para mostrar no historico!')
-        return
-    for item in historico:
+    for item in lista:
         print()
         print(f"Moeda origem: {item['moeda_origem']}".center(32))
         print(f"Moeda destino: {item['moeda_destino']}".center(32))
@@ -26,3 +25,16 @@ def ver_historico():
         print(f"valor convertido: {item['valor_convertido']}".center(32))
         print(f"Data da conversão: {item.get('data','data não disponivel')}")
         print()
+
+def ordenar_historico():
+    lista = carregar()
+    def pegar_data(item):
+        data_str = item.get('data')
+        if data_str:
+            try:
+                return datetime.strptime(data_str, "%d/%m/%Y %H:%M:%S")
+            except ValueError:
+                pass
+        return datetime(1900,1,1)
+    lista_ordenada = sorted(lista,key=pegar_data,reverse=True)
+    return  lista_ordenada
