@@ -65,11 +65,18 @@ def main():
                 print('Não há nada para limpar no historico!❌')
         elif opcao == 5:
             lista_ordenada = ordenar_historico()
-            ver_historico(lista_ordenada)
+            if lista_ordenada is None:
+                print('Não há nada para mostrar')
+            else:
+                ver_historico(lista_ordenada)
+
         elif opcao == 6:
             origem = input('Moeda de origem ex (BRL,EUR,USD): ').strip().upper()
             filtro = filtrar_moeda(origem)
-            ver_historico(filtro)
+            if not filtro:
+                print(f'nenhum filtro encontrado para {origem}')
+            else:
+                filtro = filtrar_moeda(ver_historico)
 
         elif opcao == 7:
              salvar(lista)
