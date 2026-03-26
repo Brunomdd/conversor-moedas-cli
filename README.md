@@ -173,10 +173,20 @@ Servindo como base para projetos mais avançados.
 
 
 
-
 ## 🔌 Integração com API (Exchange Rate)
 
 O sistema utiliza uma API de taxas de câmbio para obter os valores atualizados das moedas.
+Esta API requer uma **API Key gratuita**.
+
+---
+
+### 🔑 Como obter a API Key
+
+1. Acesse o site da ExchangeRate API
+2. Crie uma conta gratuita
+3. Copie sua chave (API Key)
+
+---
 
 ### 📡 Como funciona
 
@@ -186,17 +196,18 @@ O sistema utiliza uma API de taxas de câmbio para obter os valores atualizados 
    * moeda de destino (ex: BRL)
    * valor
 
-2. O sistema faz uma requisição para a API:
+2. O sistema faz uma requisição para a API com a chave:
 
 ```bash
-https://api.exchangerate-api.com/v4/latest/USD
+https://v6.exchangerate-api.com/v6/SUA_API_KEY/latest/USD
 ```
 
 3. A API retorna um JSON com as taxas:
 
 ```json
 {
-  "base": "USD",
+  "result": "success",
+  "base_code": "USD",
   "conversion_rates": {
     "BRL": 5.23,
     "EUR": 0.92,
@@ -288,6 +299,25 @@ O sistema mostrará apenas registros com essa moeda.
 * Ex: USD, BRL, EUR
 * A API depende de conexão com a internet
 * Caso a API falhe, o sistema exibirá erro
+* A API possui limite de requisições no plano gratuito
+
+---
+
+## 🔑 Configuração da API Key (importante)
+
+⚠️ **Nunca coloque sua API Key diretamente no código ao subir no GitHub**
+
+Use variável de ambiente:
+
+```bash
+export API_KEY=sua_chave_aqui
+```
+
+Ou crie um arquivo `.env`:
+
+```bash
+API_KEY=sua_chave_aqui
+```
 
 ---
 
@@ -306,6 +336,6 @@ pip install requests
 
 ## 💡 Nota
 
-Este projeto utiliza uma API pública de taxas de câmbio.
-Para uso profissional, recomenda-se utilizar uma API com chave (API Key).
+Este projeto utiliza uma API externa com autenticação via chave.
+Para aplicações maiores, recomenda-se gerenciar credenciais com segurança (variáveis de ambiente).
 
