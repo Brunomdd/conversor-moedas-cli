@@ -2,29 +2,51 @@ from api import  api_moeda
 from uteis import carregar
 from datetime import  datetime
 
+def linha(t=32):
+    return '-' * t
+
+def cabecalho(txt):
+    print(linha())
+    print(f'{txt}'.center(32))
+    print(linha())
+
 def moedas_disponiveis():
+    cabecalho("MOEDAS DISPONÌVEIS")
+
     dados = api_moeda("USD")
     if not dados:
         print('A APi não conseguiu se conectar ,tente novamente mais tarde')
         return
 
+
+    print("Moedas disponíveis (ex: use no formato USD, BRL, EUR)")
     quantidade = len(dados['conversion_rates'])
-    print(f'Temos ({quantidade}) moedas disponiveis')
-    for relatorio in sorted(dados['conversion_rates']):
-        print(f'{relatorio}')
+    print(f"Total: {quantidade}")
+    c = 0
+    for relatorio in dados['conversion_rates']:
+        c+=1
+        print(f'{relatorio}',end=' ')
+        if c >=4:
+            print('\n')
+            c = 0
+
 
 def ver_historico(lista=None):
     if lista is None:
         lista = carregar()
+    if not lista:
+        print('Não há nada para mostrar no histórico')
+        return
 
-    for item in lista:
-        print()
-        print(f"Moeda origem: {item['moeda_origem']}".center(32))
+    for valor, item in  enumerate(lista,start=1):
+        print(linha())
+        print(f"{valor}".center(32))
+        print(f" Moeda origem: {item['moeda_origem']}".center(32))
         print(f"Moeda destino: {item['moeda_destino']}".center(32))
         print(f'valor original: {item['valor_conversão']}'.center(32))
         print(f"valor convertido: {item['valor_convertido']}".center(32))
         print(f"Data da conversão: {item.get('data','data não disponivel')}")
-        print()
+
 
 def ordenar_historico():
     lista = carregar()
