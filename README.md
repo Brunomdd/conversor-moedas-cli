@@ -27,7 +27,7 @@ O sistema também armazena um histórico de conversões, permitindo visualizaç�
   * valor original
   * valor convertido
   * data/hora
-* Persistência em arquivo
+* Persistência em arquivo (JSON)
 
 ---
 
