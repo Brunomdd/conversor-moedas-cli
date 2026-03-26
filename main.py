@@ -43,7 +43,7 @@ def main():
         elif opcao == 2:
             moedas_disponiveis()
         elif opcao == 3:
-            ver_historico()
+            ver_historico(lista)
         elif opcao == 4:
             if lista:
                 resp = confirmar_acao("Quer continuar? [S/N]")
@@ -67,9 +67,9 @@ def main():
             destino = input('Moeda de origem ex (BRL,EUR,USD): ').strip().upper()
             filtro = filtrar_moeda(origem,destino)
             if not filtro:
-                print(f'nenhum filtro encontrado para {origem}')
+                print(f'nenhum filtro encontrado para {origem} ou {destino}')
             else:
-                filtro = ver_historico(filtro)
+                 ver_historico(filtro)
 
         elif opcao == 7:
              salvar(lista)
@@ -78,8 +78,6 @@ def main():
         else:
             print('Opção inválida!')
 
-main()
-
-
-
+if __name__ == "__main__":
+    main()
 
