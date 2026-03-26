@@ -59,11 +59,11 @@ def ordenar_historico():
     return  lista_ordenada
 
 
-def filtrar_moeda(origem):
+def filtrar_moeda(origem,destino):
     lista = carregar()
     filtro = []
 
     for i in lista:
-        if origem == i['moeda_origem']:
+        if origem == i['moeda_origem'] and destino == i['moeda_destino']:
             filtro.append(i)
     return filtro

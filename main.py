@@ -1,16 +1,7 @@
 from uteis import leiaint,leiafloat,carregar,salvar,confirmar_acao
 from conversor import conversao_taxa
-from interface_cli import moedas_disponiveis,ver_historico,ordenar_historico,linha,cabecalho
+from interface_cli import moedas_disponiveis,ver_historico,ordenar_historico,linha,cabecalho,filtrar_moeda
 from datetime import  datetime
-
-def filtrar_moeda(origem):
-    lista = carregar()
-    filtro = []
-
-    for i in lista:
-        if origem == i['moeda_origem']:
-            filtro.append(i)
-    return filtro
 
 def main():
     lista = carregar()
@@ -48,6 +39,7 @@ def main():
                 print(f"{valor} {origem} → {resposta:.2f} {destino} (salvo no histórico ✅)")
                 lista.append({'moeda_origem':origem,'moeda_destino':destino,"valor_conversão":valor,"valor_convertido":resposta,'data':data_hora_br})
                 salvar(lista)
+
         elif opcao == 2:
             moedas_disponiveis()
         elif opcao == 3:
@@ -72,11 +64,12 @@ def main():
 
         elif opcao == 6:
             origem = input('Moeda de origem ex (BRL,EUR,USD): ').strip().upper()
-            filtro = filtrar_moeda(origem)
+            destino = input('Moeda de origem ex (BRL,EUR,USD): ').strip().upper()
+            filtro = filtrar_moeda(origem,destino)
             if not filtro:
                 print(f'nenhum filtro encontrado para {origem}')
             else:
-                filtro = filtrar_moeda(ver_historico)
+                filtro = ver_historico(filtro)
 
         elif opcao == 7:
              salvar(lista)
