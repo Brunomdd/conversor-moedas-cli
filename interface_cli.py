@@ -15,7 +15,6 @@ def moedas_disponiveis():
 
     dados = api_moeda("USD")
     if not dados:
-        print('A APi não conseguiu se conectar ,tente novamente mais tarde')
         return
 
     print("Moedas disponíveis (ex: use no formato USD, BRL, EUR)")
@@ -45,7 +44,7 @@ def ver_historico(lista=None):
         print(f"valor convertido: {item['valor_convertido']}".center(32))
         print(f"Data da conversão: {item.get('data','data não disponivel')}")
 
-def ordenar_historico():
+def ordenar_historico(lista):
     lista = carregar()
     def pegar_data(item):
         data_str = item.get('data')
@@ -57,7 +56,6 @@ def ordenar_historico():
         return datetime(1900,1,1)
     lista_ordenada = sorted(lista,key=pegar_data,reverse=True)
     return  lista_ordenada
-
 
 def filtrar_moeda(origem,destino):
     lista = carregar()
