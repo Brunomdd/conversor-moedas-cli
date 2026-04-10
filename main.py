@@ -67,7 +67,7 @@ def main():
             if resposta is None:
                 print('Erro ao converter a moeda')
             else:
-                print(f"{valor} {origem} → {resposta:.2f} {destino} (salvo no histórico ✅)")
+                print(f"{valor} {origem} → {resposta:.2f} {destino} (salvo no histórico )")
                 lista.append({
                     'moeda_origem': origem,
                     'moeda_destino': destino,
@@ -90,10 +90,10 @@ def main():
                     print('Manteremos o estado atual do seu arquivo.')
                 else:
                     lista.clear()
-                    print('O historico foi limpo com sucesso!✅')
+                    print('O historico foi limpo com sucesso!')
                     salvar(lista)
             else:
-                print('Não há nada para limpar no historico!❌')
+                print('Não há nada para limpar no historico!')
 
         elif opcao == 5:
             lista_ordenada = ordenar_historico()
